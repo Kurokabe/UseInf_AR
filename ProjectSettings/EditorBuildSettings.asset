@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 4a0557e9185ac394ca4c57938e931a33
+  - enabled: 0
+    path: Assets/GoogleARCore/Examples/AugmentedImage/Scenes/AugmentedImage.unity
+    guid: be567d47d3ab94b3badc5b211f535a24
   m_configObjects: {}

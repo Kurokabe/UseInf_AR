@@ -168,7 +168,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SessionConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 9586a84d6c32f46b6ab7aeb6042f160d,
+      objectReference: {fileID: 11400000, guid: 49ea5ff7cc712fd44a28b01af0c67044,
         type: 2}
     - target: {fileID: 114876698896786350, guid: c10877f7cd5764de18d46d7b777d1faa,
         type: 3}
@@ -190,7 +190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1536853937296922, guid: 26558ae1d2e7243728486d789f984c53, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4205356930328266, guid: 26558ae1d2e7243728486d789f984c53, type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,11 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstPersonCamera: {fileID: 896679035}
-  GameObjectVerticalPlanePrefab: {fileID: 4059963713225430045, guid: a362e1469f0042b4dbb0d552b3aae134,
-    type: 3}
-  GameObjectHorizontalPlanePrefab: {fileID: 4059963713225430045, guid: a362e1469f0042b4dbb0d552b3aae134,
-    type: 3}
-  GameObjectPointPrefab: {fileID: 4059963713225430045, guid: a362e1469f0042b4dbb0d552b3aae134,
+  HousePrefab: {fileID: 305435953512173731, guid: a362e1469f0042b4dbb0d552b3aae134,
     type: 3}
 --- !u!1001 &688001843
 PrefabInstance:
@@ -283,6 +279,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1026997606374626, guid: c539aa4fa1bac4b4da61761b0699b48b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4430574757597842, guid: c539aa4fa1bac4b4da61761b0699b48b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -446,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2083512465
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,6 +34,8 @@ using Input = GoogleARCore.InstantPreviewInput;
 /// </summary>
 public class ARController: MonoBehaviour
 {
+    public GameHandler GameHandler;
+
     /// <summary>
     /// The first-person camera being used to render the passthrough camera image (i.e. AR
     /// background).
@@ -44,6 +46,11 @@ public class ARController: MonoBehaviour
     /// A prefab to place when the house image has been found.
     /// </summary>
     public GameEntity HousePrefab;
+
+    /// <summary>
+    /// A prefab corresponding to the spider ennemy
+    /// </summary>
+    public GameEntity SpiderSpawner;
 
     /// <summary>
     /// The rotation in degrees need to apply to prefab when it is placed.
@@ -85,7 +92,6 @@ public class ARController: MonoBehaviour
     {
         // Get updated augmented images for this frame.
         Session.GetTrackables<AugmentedImage>(m_TempAugmentedImages, TrackableQueryFilter.Updated);
-
         // Create visualizers and anchors for updated augmented images that are tracking and do
         // not previously have a visualizer. Remove visualizers for stopped images.
         foreach (var image in m_TempAugmentedImages)
@@ -96,7 +102,10 @@ public class ARController: MonoBehaviour
             {
                 // Create an anchor to ensure that ARCore keeps tracking this augmented image.
                 Anchor anchor = image.CreateAnchor(image.CenterPose);
-                entity = Instantiate(HousePrefab, anchor.transform);
+                entity = Instantiate(_SpawnEntity(image), anchor.transform);
+
+                GameHandler.GameObjectSpawned(entity);
+
                 //visualizer.Image = image;
                 m_Entities.Add(image.DatabaseIndex, entity);
             }
@@ -105,6 +114,19 @@ public class ARController: MonoBehaviour
                 m_Entities.Remove(image.DatabaseIndex);
                 GameObject.Destroy(entity.gameObject);
             }
+        }
+    }
+
+    private GameEntity _SpawnEntity(AugmentedImage image)
+    {
+        switch(image.Name)
+        {
+            case "House":
+                return HousePrefab;
+            case "Spider":
+                return SpiderSpawner;
+            default:
+                return SpiderSpawner;
         }
     }
 

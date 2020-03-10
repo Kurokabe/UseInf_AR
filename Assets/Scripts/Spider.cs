@@ -34,7 +34,5 @@ public class Spider : GameEntity
             transform.position = Vector3.Lerp(startMarker.position, endMarker, fracJourney);
         }
     }
-    
-
 
 }

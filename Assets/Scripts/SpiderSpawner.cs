@@ -7,12 +7,11 @@ public class SpiderSpawner : GameEntity
 {
     public Spider SpiderPrefab;
 
-    public int spawnCooldown = 3;
-    public int spawnTotal = 100;
+    private int spawnCooldown = 3;
+    private int spawnTotal = 1;
 
     private GameHandler gameHandler;
     private int spawnCount = 0;
-    private float startSpawnTime;
 
     // Start is called before the first frame update
     void Start()
@@ -28,42 +27,22 @@ public class SpiderSpawner : GameEntity
 
     private IEnumerator WaitAndSpawnSpider()
     {
-        startSpawnTime = Time.time;
         yield return new WaitForSecondsRealtime(spawnCooldown);
         if (gameHandler.CurrentState == GameHandler.State.PLAYING)
+        {
             SpawnSpider();
-        else
-            yield return WaitAndSpawnSpider();
-        if (this.spawnCount++ < this.spawnTotal) {
+        }
+
+        if (spawnCount < spawnTotal) {
             yield return WaitAndSpawnSpider();
         }
     }
 
     private void SpawnSpider()
     {
-        
         Instantiate(SpiderPrefab, transform);
-        float time = Time.time - startSpawnTime;
-        _ShowAndroidToastMessage($"Spawned after {time}");
+        spawnCount++;
     }
-
-    private void _ShowAndroidToastMessage(string message)
-    {
-        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        AndroidJavaObject unityActivity =
-            unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-
-        if (unityActivity != null)
-        {
-            AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
-            unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
-            {
-                AndroidJavaObject toastObject =
-                    toastClass.CallStatic<AndroidJavaObject>(
-                        "makeText", unityActivity, message, 0);
-                toastObject.Call("show");
-            }));
-        }
-    }
+   
 
 }

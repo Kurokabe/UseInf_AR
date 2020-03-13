@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
-    private House house;
-    private SpiderSpawner spiderSpawner;
+    public House house;
+    public SpiderSpawner spiderSpawner;
 
     public Text GameInfo;
     public Button BtnStartGame;

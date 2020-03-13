@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec059ea721dfcf1439b0c851d0d41919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpiderPrefab: {fileID: 5653457158265054052, guid: 33b828b8f1c31334988de54e3fe47ee6,
+  SpiderPrefab: {fileID: 3958758963349737326, guid: 33b828b8f1c31334988de54e3fe47ee6,
     type: 3}
+  spawnCooldown: 3
+  spawnTotal: 100
 --- !u!1001 &3527441742653081315
 PrefabInstance:
   m_ObjectHideFlags: 0

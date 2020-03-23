@@ -541,6 +541,8 @@ MonoBehaviour:
     type: 3}
   SpiderSpawner: {fileID: 6748952283345472293, guid: ba15158ac5e3101419ce3f070a7fa275,
     type: 3}
+  FireballPrefab: {fileID: 8104655216296315766, guid: a4357869fef816c4c9e93f4a21386bdc,
+    type: 3}
 --- !u!1001 &688001843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -844,7 +846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2083512465
 MonoBehaviour:
   m_ObjectHideFlags: 0

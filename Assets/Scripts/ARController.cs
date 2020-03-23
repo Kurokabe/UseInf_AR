@@ -53,6 +53,11 @@ public class ARController: MonoBehaviour
     public GameEntity SpiderSpawner;
 
     /// <summary>
+    /// A prefab for the fireball.
+    /// </summary>
+    public Fireball FireballPrefab;
+
+    /// <summary>
     /// The rotation in degrees need to apply to prefab when it is placed.
     /// </summary>
     private const float k_PrefabRotation = 180;
@@ -85,6 +90,8 @@ public class ARController: MonoBehaviour
         _UpdateApplicationLifecycle();
 
         _TrackImage();
+
+        _Tap();
 
     }
 
@@ -128,6 +135,64 @@ public class ARController: MonoBehaviour
             default:
                 return SpiderSpawner;
         }
+    }
+
+    private void _Tap()
+    {// If the player has not touched the screen, we are done with this update.
+        Touch touch;
+        if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+        {
+            return;
+        }
+
+        // Should not handle input if the player is pointing on UI.
+        if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+        {
+            return;
+        }
+
+        //// Raycast against the location the player touched to search for planes.
+        //TrackableHit hit;
+        //TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
+        //    TrackableHitFlags.FeaturePointWithSurfaceNormal;
+
+        //if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
+        //{
+        //    // Use hit pose and camera pose to check if hittest is from the
+        //    // back of the plane, if it is, no need to create the anchor.
+        //    if ((hit.Trackable is DetectedPlane) &&
+        //        Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
+        //            hit.Pose.rotation * Vector3.up) < 0)
+        //    {
+        //        Debug.Log("Hit at back of the current DetectedPlane");
+        //    }
+        //    else
+        //    {
+        //        // Choose the prefab based on the Trackable that got hit.
+        //        //GameObject prefab;
+
+        //        //// Instantiate prefab at the hit pose.
+        //        //var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+
+        //        //// Compensate for the hitPose rotation facing away from the raycast (i.e.
+        //        //// camera).
+        //        //gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
+
+        //        //// Create an anchor to allow ARCore to track the hitpoint as understanding of
+        //        //// the physical world evolves.
+        //        //var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+        //        //// Make game object a child of the anchor.
+        //        //gameObject.transform.parent = anchor.transform;
+        //        _ShowAndroidToastMessage(hit.Pose.position.ToString());
+        //    }
+        //}
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(touch.position.x, touch.position.y, 0));
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+
+        Fireball fireball = Instantiate(FireballPrefab, ray.origin, Quaternion.identity);
+        fireball.Launch(ray.direction);
+
     }
 
     //private void _Tap()

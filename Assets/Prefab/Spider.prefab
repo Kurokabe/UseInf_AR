@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2745988626496932393}
   m_Layer: 0
   m_Name: Spider
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,8 +61,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.044401288, y: 0.018263735, z: 0.036475316}
-  m_Center: {x: 0.00014143437, y: 0.008714605, z: -0.0006132722}
+  m_Size: {x: 0.06273704, y: 0.04240194, z: 0.04065308}
+  m_Center: {x: 0.0004895814, y: 0.020783707, z: -0.0043268427}
 --- !u!54 &3222127767465187472
 Rigidbody:
   m_ObjectHideFlags: 0

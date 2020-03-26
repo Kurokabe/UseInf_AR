@@ -26,10 +26,15 @@ public class Fireball : GameEntity
         launched = true;
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Ground")
+            Destroy(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        _ShowAndroidToastMessage("COLLISION " + other.tag);
-        if (other.tag != "Fireball")
+        if (other.tag != "Ground")
             Destroy(gameObject);
     }
 

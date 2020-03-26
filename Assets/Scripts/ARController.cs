@@ -190,7 +190,7 @@ public class ARController: MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(touch.position.x, touch.position.y, 0));
         Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
 
-        Fireball fireball = Instantiate(FireballPrefab, ray.origin, Quaternion.identity);
+        Fireball fireball = Instantiate(FireballPrefab, ray.origin, Quaternion.LookRotation(ray.direction));
         fireball.Launch(ray.direction);
 
     }

@@ -7,6 +7,7 @@ public class Spider : GameEntity
     public float speed = 0.001f;
     public float attackDamage = 10;
     public float attackCooldown = 2f;
+    public SpiderSpawner Spawner;
     private House house;
 
     private float startTime;
@@ -14,7 +15,23 @@ public class Spider : GameEntity
     private Transform startMarker;
     private Vector3 endMarker;
     private Animator animator;
-    private float health = 100;
+    public HealthBar HealthBar;
+    public float StartHealth = 200;
+    private float health;
+
+    public float Health
+    {
+        get { return health; }
+        set
+        {
+            health = value;
+            if (HealthBar != null)
+            {
+                HealthBar.SetSize(value / StartHealth);
+            }
+        }
+    }
+
     private bool hasReachedHouse = false;
 
 
@@ -30,6 +47,7 @@ public class Spider : GameEntity
             startTime = Time.time;
             journeyLength = Vector3.Distance(transform.position, house.transform.position);
         }
+        Health = StartHealth;
     }
    
 
@@ -39,7 +57,7 @@ public class Spider : GameEntity
         if (house != null && !hasReachedHouse)
         {
             transform.LookAt(house.transform);
-            if (journeyLength > 0)
+            if (journeyLength > 0 && Health > 0)
             {
                 float distCovered = (Time.time - startTime) * speed;
                 float fracJourney = distCovered / journeyLength;
@@ -51,9 +69,9 @@ public class Spider : GameEntity
         
     }
 
-    private void Damage(float damage)
+    public void Damage(float damage)
     {
-        health -= damage;
+        Health -= damage;
         if (health <= 0)
             animator.SetTrigger("Death");
         else
@@ -78,6 +96,12 @@ public class Spider : GameEntity
     public void DamageHouse()
     {
         house.Damage(attackDamage);
+    }
+
+    public void Die()
+    {
+        Spawner.SpiderDied();
+        Destroy(gameObject);
     }
 
 }

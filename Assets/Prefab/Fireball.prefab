@@ -284,8 +284,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.07
-      minScalar: 0.07
+      scalar: 0.01
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -337,8 +337,8 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.07
-      minScalar: 0.1
+      scalar: 0.05
+      minScalar: 0.07
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -390,8 +390,8 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.07
-      minScalar: 0.1
+      scalar: 0.05
+      minScalar: 0.07
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4829,8 +4829,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.013524576
-  m_Center: {x: -0.00013556052, y: 0, z: 0}
+  m_Radius: 0.01564049
+  m_Center: {x: -0.015385758, y: 0.0005222261, z: 0.00632482}
 --- !u!1 &3588610122253005646
 GameObject:
   m_ObjectHideFlags: 0

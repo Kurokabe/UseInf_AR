@@ -10,6 +10,7 @@ public class House : GameEntity
     public HealthBar HealthBar;
 
     private float health;
+    private GameHandler gameHandler;
 
     public float Health
     {
@@ -24,9 +25,12 @@ public class House : GameEntity
         }
     }
 
-
-    // Start is called before the first frame update
     void Start()
+    {
+        gameHandler = FindObjectOfType<GameHandler>();
+    }
+
+    public void Restart()
     {
         Health = StartHealth;
     }
@@ -34,5 +38,11 @@ public class House : GameEntity
     public void Damage(float damage)
     {
         Health -= damage;
+        if (Health <= 0)
+        {
+            gameHandler.HouseDestroyed();
+        }
     }
+    
+
 }

@@ -132,6 +132,8 @@ public class ARController: MonoBehaviour
                 return HousePrefab;
             case "Spider":
                 return SpiderSpawner;
+            case "Spider2":
+                return SpiderSpawner;
             default:
                 return SpiderSpawner;
         }
@@ -151,42 +153,6 @@ public class ARController: MonoBehaviour
             return;
         }
 
-        //// Raycast against the location the player touched to search for planes.
-        //TrackableHit hit;
-        //TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
-        //    TrackableHitFlags.FeaturePointWithSurfaceNormal;
-
-        //if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
-        //{
-        //    // Use hit pose and camera pose to check if hittest is from the
-        //    // back of the plane, if it is, no need to create the anchor.
-        //    if ((hit.Trackable is DetectedPlane) &&
-        //        Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
-        //            hit.Pose.rotation * Vector3.up) < 0)
-        //    {
-        //        Debug.Log("Hit at back of the current DetectedPlane");
-        //    }
-        //    else
-        //    {
-        //        // Choose the prefab based on the Trackable that got hit.
-        //        //GameObject prefab;
-
-        //        //// Instantiate prefab at the hit pose.
-        //        //var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-
-        //        //// Compensate for the hitPose rotation facing away from the raycast (i.e.
-        //        //// camera).
-        //        //gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-
-        //        //// Create an anchor to allow ARCore to track the hitpoint as understanding of
-        //        //// the physical world evolves.
-        //        //var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-        //        //// Make game object a child of the anchor.
-        //        //gameObject.transform.parent = anchor.transform;
-        //        _ShowAndroidToastMessage(hit.Pose.position.ToString());
-        //    }
-        //}
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(touch.position.x, touch.position.y, 0));
         Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
 
@@ -194,77 +160,6 @@ public class ARController: MonoBehaviour
         fireball.Launch(ray.direction);
 
     }
-
-    //private void _Tap()
-    //{// If the player has not touched the screen, we are done with this update.
-    //    Touch touch;
-    //    if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
-    //    {
-    //        return;
-    //    }
-
-    //    // Should not handle input if the player is pointing on UI.
-    //    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-    //    {
-    //        return;
-    //    }
-
-    //    // Raycast against the location the player touched to search for planes.
-    //    TrackableHit hit;
-    //    TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
-    //        TrackableHitFlags.FeaturePointWithSurfaceNormal;
-
-    //    if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
-    //    {
-    //        // Use hit pose and camera pose to check if hittest is from the
-    //        // back of the plane, if it is, no need to create the anchor.
-    //        if ((hit.Trackable is DetectedPlane) &&
-    //            Vector3.Dot(FirstPersonCamera.transform.position - hit.Pose.position,
-    //                hit.Pose.rotation * Vector3.up) < 0)
-    //        {
-    //            Debug.Log("Hit at back of the current DetectedPlane");
-    //        }
-    //        else
-    //        {
-    //            // Choose the prefab based on the Trackable that got hit.
-    //            GameObject prefab;
-    //            if (hit.Trackable is FeaturePoint)
-    //            {
-    //                prefab = GameObjectPointPrefab;
-    //            }
-    //            else if (hit.Trackable is DetectedPlane)
-    //            {
-    //                DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
-    //                if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
-    //                {
-    //                    prefab = GameObjectVerticalPlanePrefab;
-    //                }
-    //                else
-    //                {
-    //                    prefab = GameObjectHorizontalPlanePrefab;
-    //                }
-    //            }
-    //            else
-    //            {
-    //                prefab = GameObjectHorizontalPlanePrefab;
-    //            }
-
-    //            // Instantiate prefab at the hit pose.
-    //            var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-
-    //            // Compensate for the hitPose rotation facing away from the raycast (i.e.
-    //            // camera).
-    //            gameObject.transform.Rotate(0, k_PrefabRotation, 0, Space.Self);
-
-    //            // Create an anchor to allow ARCore to track the hitpoint as understanding of
-    //            // the physical world evolves.
-    //            var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-    //            // Make game object a child of the anchor.
-    //            gameObject.transform.parent = anchor.transform;
-    //        }
-    //    }
-    //}
 
     /// <summary>
     /// Check and update the application lifecycle.

@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class Fireball : GameEntity
 {
+  
     private Rigidbody rb;
     private float thrust = 0.5f;
     private bool launched = false;
+    private float damage = 100;
     private Vector3 velocity;
+
+    private const float MAX_LIFETIME = 5;
+    private float currentLifeTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        currentLifeTime += Time.deltaTime;
+        if (currentLifeTime >= MAX_LIFETIME)
+            Destroy(gameObject);
     }
 
     private void FixedUpdate()
@@ -34,6 +47,11 @@ public class Fireball : GameEntity
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Enemy")
+        {
+            (other.gameObject.GetComponent<Spider>()).Damage(damage);
+        }
+
         if (other.tag != "Ground")
             Destroy(gameObject);
     }

@@ -78,11 +78,14 @@ public class Spider : GameEntity
     /// <param name="damage">The amount of damage received</param>
     public void Damage(float damage)
     {
-        Health -= damage;
-        if (health <= 0)
-            animator.SetTrigger("Death");
-        else
-            animator.SetTrigger("Damage");
+        if (Health > 0)
+        {
+            Health -= damage;
+            if (health <= 0)
+                animator.SetTrigger("Death");
+            else
+                animator.SetTrigger("Damage");
+        }
     }
 
     /// <summary>

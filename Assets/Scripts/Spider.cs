@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holder for a spider with movement and attack logic
+/// </summary>
 public class Spider : GameEntity
 {
     public float speed = 0.001f;
@@ -18,7 +21,11 @@ public class Spider : GameEntity
     public HealthBar HealthBar;
     public float StartHealth = 200;
     private float health;
+    private bool hasReachedHouse = false;
 
+    /// <summary>
+    /// Whenever the health change, change the health bar
+    /// </summary>
     public float Health
     {
         get { return health; }
@@ -32,12 +39,9 @@ public class Spider : GameEntity
         }
     }
 
-    private bool hasReachedHouse = false;
-
-
-    // Start is called before the first frame update
     void Start()
     {
+        // Get and set required variables
         house = FindObjectOfType<House>();
         animator = GetComponentInChildren<Animator>();
         if (house != null)
@@ -49,13 +53,12 @@ public class Spider : GameEntity
         }
         Health = StartHealth;
     }
-   
 
-    // Update is called once per frame
     void Update()
     {
         if (house != null && !hasReachedHouse)
         {
+            // Move the spider toward the house
             transform.LookAt(house.transform);
             if (journeyLength > 0 && Health > 0)
             {
@@ -69,6 +72,10 @@ public class Spider : GameEntity
         
     }
 
+    /// <summary>
+    /// When the spider receives some damage, reduce its health and play the animation accordingly (death or damage)
+    /// </summary>
+    /// <param name="damage">The amount of damage received</param>
     public void Damage(float damage)
     {
         Health -= damage;
@@ -78,11 +85,18 @@ public class Spider : GameEntity
             animator.SetTrigger("Damage");
     }
 
+    /// <summary>
+    /// When the spider attack, set its animation to attack
+    /// </summary>
     private void Attack()
     {
         animator.SetTrigger("Attack");
     }
 
+    /// <summary>
+    /// When the spider collide with the house (has gotten inside the attack range), start attacking the house
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "House")
@@ -93,11 +107,17 @@ public class Spider : GameEntity
         }
     }
 
+    /// <summary>
+    /// Called during the attack animation to attack the house
+    /// </summary>
     public void DamageHouse()
     {
         house.Damage(attackDamage);
     }
 
+    /// <summary>
+    /// Called at the end of the die animation to destroy the spider
+    /// </summary>
     public void Die()
     {
         Spawner.SpiderDied();

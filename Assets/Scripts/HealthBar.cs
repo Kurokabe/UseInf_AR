@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holder for the health bar
+/// Can call SetSize to change the percentage of the bar
+/// </summary>
 public class HealthBar : MonoBehaviour
 {
     private Transform bar;

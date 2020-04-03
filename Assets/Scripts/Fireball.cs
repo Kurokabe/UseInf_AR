@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Fireball logic
+/// </summary>
 public class Fireball : GameEntity
 {
   
@@ -13,8 +16,7 @@ public class Fireball : GameEntity
 
     private const float MAX_LIFETIME = 5;
     private float currentLifeTime = 0;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,6 +24,7 @@ public class Fireball : GameEntity
 
     void Update()
     {
+        // Check to destroy the fireball after {MAX_LIFETIME} seconds
         currentLifeTime += Time.deltaTime;
         if (currentLifeTime >= MAX_LIFETIME)
             Destroy(gameObject);
@@ -29,22 +32,36 @@ public class Fireball : GameEntity
 
     private void FixedUpdate()
     {
+        // Set constantly the projectile velocity so that it continue to that direction
         if (launched)
             rb.velocity = velocity;
     }
 
+    /// <summary>
+    /// Called after the projectile is created to send it towards a direction
+    /// </summary>
+    /// <param name="direction">The direction of the fireball</param>
     public void Launch(Vector3 direction)
     {
         this.velocity = direction.normalized * thrust;
         launched = true;
     }
 
+    /// <summary>
+    /// When the fireball has finished to collide with the ground, destroy it 
+    /// The Exit function here is used to correct a problem when spider spawn under the ground
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Ground")
             Destroy(gameObject);
     }
 
+    /// <summary>
+    /// When the fireball collide with anything, destroy the fireball. If it collides with an enemy, apply the damage to the enemy
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
@@ -54,24 +71,5 @@ public class Fireball : GameEntity
 
         if (other.tag != "Ground")
             Destroy(gameObject);
-    }
-
-    private void _ShowAndroidToastMessage(string message)
-    {
-        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        AndroidJavaObject unityActivity =
-            unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-
-        if (unityActivity != null)
-        {
-            AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
-            unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
-            {
-                AndroidJavaObject toastObject =
-                    toastClass.CallStatic<AndroidJavaObject>(
-                        "makeText", unityActivity, message, 0);
-                toastObject.Call("show");
-            }));
-        }
     }
 }

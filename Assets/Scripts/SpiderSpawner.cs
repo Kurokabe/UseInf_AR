@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Contains the spider spawner logic
+/// </summary>
 public class SpiderSpawner : GameEntity
 {
     public Spider SpiderPrefab;
 
+    // Constants for the start and restart of the game
     private const float START_SPAWN_COOLDOWN_MIN = 3;
     private const float START_SPAWN_COOLDOWN_MAX = 5;
     private const int START_MAX_SPIDER = 3;
-    private const float START_SPIDER_DAMAGE = 10;
-    private const float START_SPIDER_HEALTH = 100;
+    private const float START_SPIDER_DAMAGE = 6;
+    private const float START_SPIDER_HEALTH = 66;
 
+    // Variables that changes every waves
     private float spawnCooldownMin;
     private float spawnCooldownMax;
     private int maxSpider = 1;
     private float spiderHealth;
+
     public float SpiderHealth
     {
         get { return spiderHealth; }
@@ -24,7 +30,6 @@ public class SpiderSpawner : GameEntity
         {
             spiderHealth = value;
             SpiderPrefab.StartHealth = spiderHealth;
-            SpiderPrefab.attackDamage = spiderDamage;
         }
     }
     private float spiderDamage;
@@ -49,11 +54,10 @@ public class SpiderSpawner : GameEntity
         Restart();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
+    /// <summary>
+    /// Wait a random time between {spawnCooldownMin} and {spawnCooldownMax} and then spawn a spider
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator WaitAndSpawnSpider()
     {
         yield return new WaitForSecondsRealtime(Random.Range(spawnCooldownMin, spawnCooldownMax));
@@ -67,6 +71,9 @@ public class SpiderSpawner : GameEntity
         }
     }
 
+    /// <summary>
+    /// Create a spider at the spawner location
+    /// </summary>
     private void SpawnSpider()
     {
         Spider spider = Instantiate(SpiderPrefab, transform);
@@ -74,6 +81,9 @@ public class SpiderSpawner : GameEntity
         spawnCount++;
     }
 
+    /// <summary>
+    /// When the game restarts, reset the spider values
+    /// </summary>
     public void Restart()
     {
         spawnCooldownMin = START_SPAWN_COOLDOWN_MIN;
@@ -83,6 +93,9 @@ public class SpiderSpawner : GameEntity
         SpiderDamage = START_SPIDER_DAMAGE;
     }
 
+    /// <summary>
+    /// When a new wave starts, reset some variables and increase the spider frequency and strength
+    /// </summary>
     public void NewWave()
     {
         spawnCount = 0;
@@ -95,6 +108,9 @@ public class SpiderSpawner : GameEntity
         StartCoroutine(WaitAndSpawnSpider());
     }
 
+    /// <summary>
+    /// When a spider dies check if all spiders from this spawner died, if so, notify the game handler
+    /// </summary>
     public void SpiderDied()
     {
         deadSpider++;

@@ -15,3 +15,6 @@ The objective is to survive the maximum number of waves by killing the spiders b
 Here is a video of the gameplay :
 
 [![Video Gameplay](https://img.youtube.com/vi/VhEImlwDocA/0.jpg)](https://www.youtube.com/watch?v=VhEImlwDocA)
+
+You can also find the presentation of the project in french :
+[![Presentation](Assets/Images/presentation.PNG)](https://docs.google.com/presentation/d/e/2PACX-1vQ0_mOUtgJK7a0MR5BYSnmtNllJdkpPqlRVLMP4gDeGjjgEbr8OUQzBWI-3Ztqf_imXT0PJd7WBQF5-/pub?start=false&loop=false&delayms=5000)
